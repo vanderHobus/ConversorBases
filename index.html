@@ -11,44 +11,88 @@
 	<div class="container">  
 		<div class="logo"><img src="http://www.catolicasc.org.br/wp-content/themes/escolha_acessibilidade/images/logo.png" width="200px"></div>
 		<form id="form" action="" method="post">
-			<h3>Conversor de bases numéricas</h3>
-			<fieldset>
-				<div class="form-group">
-					<label class="col-md-3 control-label" for="textinput">Binário</label>  
-					<div class="col-md-9">
-						<input ng-change="calcular(this.txtBase2, 2)" ng-model="txtBase2" id="textBase2" name="textinput" type="text" placeholder="Informe o número desejado em base 2" class="form-control input-md">
-					</div>
-				</div>
-			</fieldset>
+		
+			<ul class="nav nav-tabs">
+			  <li ng-class="{active:tabAtiva(1)}"><a href ng-click="setTab(1)">Conversor de bases numéricas</a></li>
+			  <li ng-class="{active:tabAtiva(2)}"><a href ng-click="setTab(2)">Calculadora binária</a></li>
+			</ul>
 
-			<fieldset>
-				<div class="form-group">
-					<label class="col-md-3 control-label" for="textinput">Decimal</label>  
-					<div class="col-md-9">
-						<input ng-change="calcular(this.txtBase10, 10)" ng-model="txtBase10" id="textBase10" name="textinput" type="text" placeholder="Informe o número desejado em base 10" class="form-control input-md">
+			<div id="tabConversor" ng-show="tabAtiva(1)">
+				<h3>Conversor de bases numéricas</h3>
+				<fieldset>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="textinput">Binário</label>  
+						<div class="col-md-9">
+							<input ng-change="converter(this.txtBase2, 2)" ng-model="txtBase2" id="textBase2" name="textinput" type="text" placeholder="Informe o número desejado em base 2" class="form-control input-md">
+						</div>
 					</div>
-				</div>
-			</fieldset>
-		
-			<fieldset>
-				<div class="form-group">
-					<label class="col-md-3 control-label" for="textinput">Octal</label>  
-					<div class="col-md-9">
-					<input ng-change="calcular(this.txtBase8, 8)" ng-model="txtBase8" id="textBase8" name="textinput" type="text" placeholder="Informe o número desejado em base 8" class="form-control input-md">
+				</fieldset>
+
+				<fieldset>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="textinput">Decimal</label>  
+						<div class="col-md-9">
+							<input ng-change="converter(this.txtBase10, 10)" ng-model="txtBase10" id="textBase10" name="textinput" type="text" placeholder="Informe o número desejado em base 10" class="form-control input-md">
+						</div>
 					</div>
-				</div>
-			</fieldset>
-		
-			<fieldset>
-				<div class="form-group">
-					<label class="col-md-3 control-label" for="textinput">Hexadecimal</label>  
-					<div class="col-md-9">
-					<input ng-change="calcular(this.txtBase16, 16)" ng-model="txtBase16" id="textBase16" name="textinput" type="text" placeholder="Informe o número desejado em base 16" class="form-control input-md">
+				</fieldset>
+			
+				<fieldset>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="textinput">Octal</label>  
+						<div class="col-md-9">
+						<input ng-change="converter(this.txtBase8, 8)" ng-model="txtBase8" id="textBase8" name="textinput" type="text" placeholder="Informe o número desejado em base 8" class="form-control input-md">
+						</div>
 					</div>
-				</div>
-			</fieldset>
+				</fieldset>
+			
+				<fieldset>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="textinput">Hexadecimal</label>  
+						<div class="col-md-9">
+						<input ng-change="converter(this.txtBase16, 16)" ng-model="txtBase16" id="textBase16" name="textinput" type="text" placeholder="Informe o número desejado em base 16" class="form-control input-md">
+						</div>
+					</div>
+				</fieldset>
+			</div>
     
-			<p class="copyright"><a href="http://catolicasc.org.br" target="_blank" title="Colorlib">Catolica Santa Catarina</a> | <a href="https://github.com/vanderHobus/ConversorBases" target="_blank" title="Colorlib">Hosted with ♥ by GitHub</a></p>
+			<div id="tabCalculadora" ng-show="tabAtiva(2)">
+				<h3>Calculadora binária</h3>
+				<fieldset>
+					<div class="form-group">
+						<div class="col-md-12">
+							<input ng-change="calcular(this.txtBase2, 2)" ng-model="txtNum1" id="txtNum1" name="textinput" type="text" placeholder="Informe o primeiro númeroem base 2 (binário)" class="form-control input-md">
+						</div>
+					</div>
+				</fieldset>
+		
+				<fieldset>
+					<div class="form-group">
+						<div class="col-md-12">
+							<input ng-change="calcular(this.txtBase2, 2)" ng-model="txtNum2" id="txtNum2" name="textinput" type="text" placeholder="Informe o segundo númeroem base 2 (binário)" class="form-control input-md">
+						</div>
+					</div>
+				</fieldset>
+				
+				<fieldset>
+					<div class="form-group">
+						<div class="col-md-12">
+							<div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+								<a href="#" ng-class="operacao === 1 ? 'active' : ''" ng-click="setOperacao(1)" class="btn btn-default" role="button">Somar</a>
+								<a href="#" ng-class="operacao === 2 ? 'active' : ''" ng-click="setOperacao(2)" class="btn btn-default" role="button">Subtrair</a>
+								<a href="#" ng-class="operacao === 3 ? 'active' : ''" ng-click="setOperacao(3)" class="btn btn-default" role="button">Dividir</a>
+								<a href="#" ng-class="operacao === 4 ? 'active' : ''" ng-click="setOperacao(4)" class="btn btn-default" role="button">Multiplicar</a>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				
+				<div class="col-md-12" ng-show="total">
+					<div ng-hide="total == 0" class="alert alert-success text-center" role="alert">{{txtNum1}} + {{txtNum2}} = <strong>{{total}}</strong></div>
+				</div>
+			</div>
+	
+			<p class="copyright"><a href="http://catolicasc.org.br" target="_blank" title="Colorlib">Catolica Santa Catarina</a> | <a href="https://github.com/vanderHobus/ConversorBases/" target="_blank" title="Colorlib">Hosted with ♥ by GitHub</a></p>
 		</form>
 	</div>
 	
